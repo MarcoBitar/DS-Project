@@ -19,7 +19,9 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-cout << "hello"
+cout << "hello";
+cout << "Marco";
+
     return 0;
 }
 
