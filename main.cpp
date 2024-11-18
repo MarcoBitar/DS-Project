@@ -19,7 +19,7 @@ using namespace std;
  * 
  */
 int main(int argc, char** argv) {
-    cout << "hi";
+    cout << "hi?";
     return 0;
 }
 
