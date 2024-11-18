@@ -6,22 +6,20 @@
 
 /* 
  * File:   main.cpp
- * Author: Nour
+ * Author: Marco
  *
- * Created on November 18, 2024, 1:13 PM
+ * Created on 18 November 2024, 1:08 pm
  */
 
 #include <cstdlib>
 #include <iostream>
-
 using namespace std;
 
 /*
  * 
  */
 int main(int argc, char** argv) {
-
-    cout << "test2";
+    cout << "hi";
     return 0;
 }
 
