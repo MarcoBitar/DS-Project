@@ -6,13 +6,14 @@
 
 /* 
  * File:   main.cpp
- * Author: Marco
+ * Author: Nour
  *
- * Created on 18 November 2024, 12:39 pm
+ * Created on November 18, 2024, 1:13 PM
  */
 
 #include <cstdlib>
 #include <iostream>
+
 using namespace std;
 
 /*
@@ -20,6 +21,7 @@ using namespace std;
  */
 int main(int argc, char** argv) {
 
+    cout << "test";
     return 0;
 }
 
