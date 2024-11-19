@@ -35,6 +35,12 @@ OBJECTDIR=${CND_BUILDDIR}/${CND_CONF}/${CND_PLATFORM}
 
 # Object Files
 OBJECTFILES= \
+	${OBJECTDIR}/CompletedOrder.o \
+	${OBJECTDIR}/CustomOrder.o \
+	${OBJECTDIR}/Menu.o \
+	${OBJECTDIR}/MenuItem.o \
+	${OBJECTDIR}/Node.o \
+	${OBJECTDIR}/Order.o \
 	${OBJECTDIR}/main.o
 
 
@@ -61,6 +67,36 @@ LDLIBSOPTIONS=
 ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/ds-project.exe: ${OBJECTFILES}
 	${MKDIR} -p ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}
 	${LINK.cc} -o ${CND_DISTDIR}/${CND_CONF}/${CND_PLATFORM}/ds-project ${OBJECTFILES} ${LDLIBSOPTIONS}
+
+${OBJECTDIR}/CompletedOrder.o: CompletedOrder.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CompletedOrder.o CompletedOrder.cpp
+
+${OBJECTDIR}/CustomOrder.o: CustomOrder.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/CustomOrder.o CustomOrder.cpp
+
+${OBJECTDIR}/Menu.o: Menu.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Menu.o Menu.cpp
+
+${OBJECTDIR}/MenuItem.o: MenuItem.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/MenuItem.o MenuItem.cpp
+
+${OBJECTDIR}/Node.o: Node.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Node.o Node.cpp
+
+${OBJECTDIR}/Order.o: Order.cpp
+	${MKDIR} -p ${OBJECTDIR}
+	${RM} "$@.d"
+	$(COMPILE.cc) -O2 -MMD -MP -MF "$@.d" -o ${OBJECTDIR}/Order.o Order.cpp
 
 ${OBJECTDIR}/main.o: main.cpp
 	${MKDIR} -p ${OBJECTDIR}

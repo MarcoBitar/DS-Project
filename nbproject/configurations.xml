@@ -4,6 +4,12 @@
     <logicalFolder name="HeaderFiles"
                    displayName="Header Files"
                    projectFiles="true">
+      <itemPath>CompletedOrder.h</itemPath>
+      <itemPath>CustomOrder.h</itemPath>
+      <itemPath>Menu.h</itemPath>
+      <itemPath>MenuItem.h</itemPath>
+      <itemPath>Node.h</itemPath>
+      <itemPath>Order.h</itemPath>
     </logicalFolder>
     <logicalFolder name="ResourceFiles"
                    displayName="Resource Files"
@@ -12,6 +18,12 @@
     <logicalFolder name="SourceFiles"
                    displayName="Source Files"
                    projectFiles="true">
+      <itemPath>CompletedOrder.cpp</itemPath>
+      <itemPath>CustomOrder.cpp</itemPath>
+      <itemPath>Menu.cpp</itemPath>
+      <itemPath>MenuItem.cpp</itemPath>
+      <itemPath>Node.cpp</itemPath>
+      <itemPath>Order.cpp</itemPath>
       <itemPath>main.cpp</itemPath>
     </logicalFolder>
     <logicalFolder name="TestFiles"
@@ -36,6 +48,30 @@
       </toolsSet>
       <compileType>
       </compileType>
+      <item path="CompletedOrder.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="CompletedOrder.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="CustomOrder.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="CustomOrder.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Menu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Menu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MenuItem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MenuItem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Node.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Node.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Order.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Order.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
@@ -59,6 +95,30 @@
           <developmentMode>5</developmentMode>
         </asmTool>
       </compileType>
+      <item path="CompletedOrder.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="CompletedOrder.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="CustomOrder.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="CustomOrder.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Menu.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Menu.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="MenuItem.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="MenuItem.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Node.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Node.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="Order.cpp" ex="false" tool="1" flavor2="0">
+      </item>
+      <item path="Order.h" ex="false" tool="3" flavor2="0">
+      </item>
       <item path="main.cpp" ex="false" tool="1" flavor2="0">
       </item>
     </conf>
