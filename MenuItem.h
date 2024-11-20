@@ -33,7 +33,7 @@ public:
     void setId(int);
     int getId() const;
     void setName(string);
-    string getName();
+    string getName() const;
     void setDescription(string);
     string getDescription() const;
     void setPrice(double);
