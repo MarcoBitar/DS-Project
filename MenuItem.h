@@ -28,6 +28,16 @@ private:
 public:
     MenuItem(int, string, string, double);
     void displayMenuItem(ostream& ) const;
+    
+    void setMenuItem(int, string, string, double);
+    void setId(int);
+    int getId() const;
+    void setName(string);
+    string getName();
+    void setDescription(string);
+    string getDescription() const;
+    void setPrice(double);
+    double getPrice() const;
 };
 
 ostream& operator<< (const ostream&, const MenuItem&);
