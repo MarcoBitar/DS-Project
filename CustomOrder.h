@@ -34,7 +34,6 @@ public:
     bool isEmpty()const;
     Order search(int);
     void displayCustomOrder(ostream&) const;
-    
 };
 
 ostream& operator<< (const ostream&, const CustomOrder&);

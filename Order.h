@@ -21,16 +21,29 @@ using namespace std;
 
 class Order {
 private:
-    int orderId;
+    int orderId, orderSize, myCapacity;
     string custName;
     MenuItem* items;
     double totalAmount;
     
 public:
-    Order(int, string, MenuItem*);
+    Order();
+    Order(int, string, MenuItem*, int);
+    void setOrder(int, string, MenuItem*, int);
+    void setOrderId(int);
+    int getOrderId() const;
+    void setCustName(string);
+    string getCustName() const;
+    void setOrderSize(int);
+    int getOrderSize() const;
+    void calculateTotalAmount(MenuItem* , int);
+    double getTotalAmount() const;
+    MenuItem& getMenuItems() const;
+    bool addMenuItem(MenuItem&);
     void displayOrder(ostream& ) const;
-    Order& operator=(Order&);
+    Order& operator=(const Order& );
+    // istream& operator>>(istream& , Order& );
 };
 
-ostream& operator<< (const ostream&, const Order&);
+ostream& operator<< (ostream&, const Order&);
 #endif /* ORDER_H */

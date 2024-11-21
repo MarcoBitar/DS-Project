@@ -15,6 +15,7 @@
 #define COMPLETEDORDER_H
 
 #include <iostream>
+#include <fstream>
 #include "Order.h"
 #include "Node.h"
 using namespace std;
@@ -30,11 +31,12 @@ public:
     bool isEmpty() const;
     void addCompletedOrder(Order& );
     Order removeCompletedOrder();
-    double totalAmountSold(CompletedOrder& );
-    void saveToFile(const string);
-    void loadFromFile(const string);
-    bool search(int);
-    void displayCompletedOrder(ostream& ) const;
+    double totalAmountSold();
+    void saveToFile(const char*);
+    void loadFromFile(const char*);
+    Order search(int) const;
+    void displayCompletedOrders(ostream& ) const;
+    void displayRevenue();
     
 };
 

@@ -20,18 +20,17 @@ using namespace std;
 
 class MenuItem {
 private:
-    int id;
+    
     string name;
     string desc;
     double price;
     
 public:
-    MenuItem(int, string, string, double);
+    MenuItem();
+    MenuItem(string, string, double);
     void displayMenuItem(ostream& ) const;
-    
-    void setMenuItem(int, string, string, double);
-    void setId(int);
-    int getId() const;
+    void readMenuItem();
+    void setMenuItem(string, string, double);
     void setName(string);
     string getName() const;
     void setDescription(string);
@@ -40,5 +39,6 @@ public:
     double getPrice() const;
 };
 
-ostream& operator<< (const ostream&, const MenuItem&);
+ostream& operator<< (ostream&, const MenuItem&);
+istream& operator>> (const istream&, MenuItem&);
 #endif /* MENUITEM_H */

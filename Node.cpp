@@ -20,7 +20,7 @@ Node::Node(const ElementType& n){
 }
 
 void Node::setData(const ElementType& n){
-    data = n;
+    this->data = n;
 }
 
 ElementType& Node::getData(){

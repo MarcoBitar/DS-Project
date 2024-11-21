@@ -14,27 +14,29 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include <cstring>
+#include <string>
 #include <iostream>
+#include <fstream>
 #include "MenuItem.h"
 using namespace std;
 
 class Menu{
 private:
     int mySize;
-    int myCapacity;
+    unsigned myCapacity;
     MenuItem* items;
     
 public:
-    Menu();
-    ~Menu();
-    void addItem(MenuItem& );
-    void removeItem(int);
+    Menu(unsigned );
+    bool addItem(MenuItem );
+    bool removeItem(int );
     void clear();
-    void saveToFile(const string);
-    void loadFromFile(const string);
-    void displayOrder(ostream& ) const;
+    MenuItem& getMenuItem(int ) const;
+    int size();
+    void saveToFile(const char*);
+    void loadFromFile(const char*);
+    void displayMenu(ostream& ) const;
 };
 
-ostream& operator<< (const ostream&, const Menu&);
+ostream& operator<< (ostream&, const Menu&);
 #endif /* MENU_H */

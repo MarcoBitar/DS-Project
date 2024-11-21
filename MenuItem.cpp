@@ -13,25 +13,21 @@
 
 #include "MenuItem.h"
 
-MenuItem::MenuItem(int id, string name, string desc, double price){
-    setMenuItem(id, name, desc, price);
+MenuItem::MenuItem(){
+    setMenuItem("", "", 0.0);
+}
+
+MenuItem::MenuItem(string name, string desc, double price){
+    setMenuItem(name, desc, price);
 }   
-void MenuItem::setMenuItem(int id, string name, string desc, double price){
-    setId(id);
+
+void MenuItem::setMenuItem(string name, string desc, double price){
+    
     setName(name);
     setDescription(desc);
     setPrice(price);
 }
-void MenuItem::setId(int id){
-    if(id > 0){
-        this->id = id;
-    } else {
-        this->id = 0;
-    }
-}
-int MenuItem::getId() const{
-    return id;
-}
+
 void MenuItem::setName(string name){
     this->name = name;
 }
@@ -57,11 +53,33 @@ double MenuItem::getPrice() const{
 
 void MenuItem::displayMenuItem(ostream& out) const{
     
-    cout << "ID: " << id << ", Name: " << name << ", Price: $" << price << endl;
+    cout << ", Name: " << name << ", Price: $" << price << endl;
 }
 
-ostream& operator<< (const ostream& out, const MenuItem& menuItem){
+void MenuItem::readMenuItem(){
+    string inputName, inputDescription;
+    double inputPrice;
     
+    cout << "Enter Item name: ";
+    cin.ignore();
+    getline(cin, inputName);
+    setName(inputName);
+            
+    cout << "\nEnter Item Description: ";
+    getline(cin, inputDescription);
+    setDescription(inputDescription);
+    
+    cout << "\nEnter Item Price: ";
+    cin >> inputPrice;
+    setPrice(inputPrice);
+}
+
+ostream& operator<< (ostream& out, const MenuItem& menuItem){
     menuItem.displayMenuItem(out);
     return out;
+}
+
+istream& operator>>(istream& in, MenuItem& menuItem){
+    menuItem.readMenuItem();
+    return in;
 }

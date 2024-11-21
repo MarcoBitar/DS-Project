@@ -15,6 +15,7 @@
 #define NODE_H
 
 #include <iostream>
+#include "Order.h"
 using namespace std;
 
 typedef Order ElementType;
@@ -24,11 +25,12 @@ private:
     ElementType data;
     Node* next;
     
-public:
+public:   
     Node(const ElementType&);
     void setData(const ElementType&);
     ElementType& getData();
     void setNext(Node* );
     Node* getNext();
-};
+}; 
+typedef Node* NodePtr;
 #endif /* NODE_H */
