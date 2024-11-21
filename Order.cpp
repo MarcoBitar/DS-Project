@@ -14,20 +14,22 @@
 #include "Order.h"
 Order::Order(){
     setOrder(-1, "", NULL, 0);
-    myCapacity = 20;
 }
 
 Order::Order(int orderId, string custName, MenuItem* items, int orderSize){
     setOrder(orderId, custName, items, orderSize);
-    myCapacity = 20;
 }
 
 void Order::setOrder(int orderId, string custName, MenuItem* items, int orderSize){
     setOrderId(orderId);
     setCustName(custName);
-    items = new MenuItem[myCapacity];
     setOrderSize(orderSize);
     calculateTotalAmount(items, orderSize);
+    myCapacity = 10;
+    
+    for(int i = 0; i < orderSize; i++){
+        this->items[i] = items[i];
+    }
 }
 
 void Order::setOrderId(int orderId){
@@ -64,11 +66,11 @@ double Order::getTotalAmount() const{
     return totalAmount;
 }
 
-MenuItem* Order::getMenuItem(int id) const {
-    for(int )
+MenuItem& Order::getOrderItem(int pos) const {
+    return items[pos];
 }
 
-bool Order::addMenuItem(MenuItem& item) {
+bool Order::addOrderItem(MenuItem& item) {
     if(orderSize == myCapacity){
         myCapacity *= 2;
         MenuItem* temp = new MenuItem [myCapacity];
@@ -98,28 +100,24 @@ void Order::displayOrder(ostream& out) const{
 
 Order& Order::operator=(const Order& other){
     if(this != &other){
-        setOrder(other.orderId, other.custName, other.items, other.orderSize);
-        calculateTotalAmount(other.items, other.orderSize);
+        delete[] items;
+        
+        myCapacity = other.myCapacity;
+        orderId = other.orderId;
+        custName = other.custName;
+        orderSize = other.orderSize;
+        totalAmount = other.totalAmount;
+        
+        items = new MenuItem[myCapacity];
+        for (int i = 0; i < other.orderSize; ++i) {
+            items[i] = other.items[i]; 
+        }
     }
     
     return *this;
 }
 
-/*istream& operator>>(istream& in, Order& order) {
-    int orderId, orderSize;
-    string custName;
-    
-    cout << "Enter Order ID: ";
-    in >> orderId;
-    cout << "Enter Customer Name: ";
-    in >> custName;
-    cout << "Enter the number of items: ";
-    in >> custName;
-    return in;
-}*/
-
 ostream& operator<< (ostream& out, const Order& order){
     order.displayOrder(out);
     return out;
 }
-

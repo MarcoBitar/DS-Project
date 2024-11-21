@@ -32,7 +32,8 @@ public:
     void enqueue(const Order&);
     Order dequeue();
     bool isEmpty()const;
-    Order search(int);
+    Node* search(int);
+    bool deleteOrder(int);
     void displayCustomOrder(ostream&) const;
 };
 

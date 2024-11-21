@@ -34,7 +34,7 @@ bool CompletedOrder::isEmpty() const{
     return mySize == 0;
 }
 
-void CompletedOrder::addCompletedOrder(Order& addOrder){
+void CompletedOrder::addCompletedOrder(Order addOrder){
    NodePtr newNode = new Node(addOrder);
     
    newNode->setNext(myTop);
@@ -69,7 +69,7 @@ void CompletedOrder::displayRevenue(){
     cout << "-- Total Revenue --" << endl;
     NodePtr temp = myTop;
     for(int i = 0; i < mySize; i++){
-        cout << "Order " << temp->getData().getOrderId() << ": $" <<
+        cout << "Order: " << temp->getData().getOrderId() << ", $" <<
                 temp->getData().getTotalAmount() << endl;
         
         temp = temp->getNext();
@@ -85,13 +85,18 @@ void CompletedOrder::saveToFile(const char* fileName){
     NodePtr temp = myTop;
      
     while(temp != NULL){
-        outputFile << temp->getData().getOrderId() << ","
-                << temp->getData().getCustName() << ",";
+        outputFile << temp->getData().getOrderId() << ", "
+                << temp->getData().getCustName() << ", ";
+        for(int i = 0; i < temp->getData().getOrderSize(); i++) {
+            outputFile << temp->getData().getOrderItem(i).getName() << " - "
+                    << temp->getData().getOrderItem(i).getPrice() << " - "
+                    << temp->getData().getOrderItem(i).getDescription() << "/ ";
+        }
+        outputFile << " , " << temp->getData().getTotalAmount() << endl;
         temp = temp->getNext();
     }
     
     outputFile.close();
-    
 }
 
 void CompletedOrder::loadFromFile(const char* fileName){
@@ -102,7 +107,7 @@ void CompletedOrder::loadFromFile(const char* fileName){
         cerr << "Failed to open file: " << fileName << endl;
         return;
     }
-    
+
     string line;
     while (getline(inputFile, line)) {
         int comma1 = line.find(',');
@@ -114,29 +119,66 @@ void CompletedOrder::loadFromFile(const char* fileName){
             continue;
         }
 
-        string id = line.substr(0, comma1);                           
-        string name = line.substr(comma1 + 1, comma2 - comma1 - 1);       
-        string desc = line.substr(comma2 + 1, comma3 - comma2 - 1);
-        string priceStr = line.substr(comma3 + 1);
+        string idStr = line.substr(0, comma1);
+        int id = atoi(idStr.c_str());
+        string name = line.substr(comma1 + 1, comma2 - comma1 - 1);   
+        string itemsStr = line.substr(comma2 + 1, comma3 - comma2 - 1);
 
-        double price = atof(priceStr.c_str());
+        int itemCount = 0;
+        int pos = 0;
+        while ((pos = itemsStr.find('/', pos)) != -1) {
+            itemCount++;
+            pos++;
+        }
 
-        addItem(MenuItem(name, desc, price));
+        MenuItem* items = new MenuItem[itemCount];
+
+        int start = 0;
+        for (int i = 0; i < itemCount; ++i) {
+            int end = itemsStr.find('/', start);
+            if (end == -1) {
+                end = itemsStr.length();  
+            }
+            string item = itemsStr.substr(start, end - start);
+            
+            int dash1 = item.find('-');
+            int dash2 = item.find('-', dash1 + 1);
+            if (dash1 == -1 || dash2 == -1) {
+                cerr << "Invalid item format in order: " << line << endl;
+                continue;
+            }
+
+            string itemName = item.substr(0, dash1);                      
+            string itemDesc = item.substr(dash1 + 1, dash2 - dash1 - 1); 
+            string itemPriceStr = item.substr(dash2 + 1);                 
+            
+            double itemPrice = atof(itemPriceStr.c_str());           
+
+            items[i] = MenuItem(itemName, itemDesc, itemPrice);        
+            start = end + 1; 
+        }
+        string totalStr = line.substr(comma3 + 1);
+        double total = atof(totalStr.c_str());
+
+        addCompletedOrder(Order(id, name, items, itemCount)); 
+        delete[] items; 
     }
-    
+
     inputFile.close();
 }
 
-Order CompletedOrder::search(int id) const{
-    
+Node* CompletedOrder::search(int orderId) const{
     NodePtr temp = myTop;
-    for(int i = 0; i < mySize; i++){
-        if(temp->getData().getOrderId() == id){
-            return temp->getData();
+    
+    while(temp != NULL){
+        if(temp->getData().getOrderId() == orderId){
+            return temp;
         }
+        
+        temp->setNext(temp->getNext());
     }
-    Order garbage;
-    return garbage;
+    
+    return temp;
 }
 
 void CompletedOrder::displayCompletedOrders(ostream& out) const{

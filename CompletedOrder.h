@@ -29,12 +29,12 @@ public:
     CompletedOrder();
     ~CompletedOrder();
     bool isEmpty() const;
-    void addCompletedOrder(Order& );
+    void addCompletedOrder(Order );
     Order removeCompletedOrder();
     double totalAmountSold();
     void saveToFile(const char*);
     void loadFromFile(const char*);
-    Order search(int) const;
+    Node* search(int) const;
     void displayCompletedOrders(ostream& ) const;
     void displayRevenue();
     

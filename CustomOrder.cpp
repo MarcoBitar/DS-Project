@@ -59,17 +59,30 @@ bool CustomOrder::isEmpty() const {
 	return false;
 }
 
-Order CustomOrder::search(int orderId) {
+Node* CustomOrder::search(int orderId) {
     Node* temp = myFront;
     while(temp != NULL) {
         if (temp->getData().getOrderId() == orderId) {
-            return temp->getData();
+            return temp;
 	}
         
-        temp->setNext(temp -> getNext());
+        temp->setNext(temp->getNext());
     }
-    Order garbage;
-    return garbage;
+
+    return temp;
+}
+
+bool CustomOrder::deleteOrder(int orderId){
+    Node* temp = search(orderId);
+    Node* prev = myFront;
+    
+    while(prev != NULL && prev->getNext() != temp){
+        prev->setNext(prev->getNext());
+    }
+    
+    prev->setNext(temp->getNext());
+    delete temp;
+    return true;
 }
 
 

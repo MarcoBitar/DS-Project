@@ -38,11 +38,10 @@ public:
     int getOrderSize() const;
     void calculateTotalAmount(MenuItem* , int);
     double getTotalAmount() const;
-    MenuItem& getMenuItems() const;
-    bool addMenuItem(MenuItem&);
+    MenuItem& getOrderItem(int) const;
+    bool addOrderItem(MenuItem&);
     void displayOrder(ostream& ) const;
     Order& operator=(const Order& );
-    // istream& operator>>(istream& , Order& );
 };
 
 ostream& operator<< (ostream&, const Order&);
