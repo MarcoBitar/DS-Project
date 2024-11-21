@@ -87,13 +87,18 @@ bool CustomOrder::deleteOrder(int orderId){
 
 
 void CustomOrder::displayCustomOrder(ostream& out) const {
-    out << " - - - Active Orders - - - " << endl;
-    Node* temp = myFront;
-    while(temp != myBack){
-        temp->getData().displayOrder(out);
-        out << "Status: Pending" << endl;
-        out << endl;
+    if(isEmpty()){
+        out << "No active orders" << endl;
+    } else {
+        out << "--- Active Orders ---" << endl;
+        Node* temp = myFront;
+        while (temp != myBack) {
+            temp->getData().displayOrder(out);
+            out << "Status: Pending" << endl;
+            out << endl;
+        }
     }
+    
 }
 
 ostream& operator<< (ostream& out, const CustomOrder& custOrder) {

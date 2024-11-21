@@ -87,7 +87,7 @@ void Menu::loadFromFile(const char* fileName) {
     inputFile.open(fileName);
     if (!inputFile.is_open()) {
         cerr << "Failed to open file: " << fileName << endl;
-        return;
+        exit(1);
     }
     
     string line;

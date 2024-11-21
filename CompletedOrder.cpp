@@ -66,10 +66,10 @@ double CompletedOrder::totalAmountSold(){
 }
 
 void CompletedOrder::displayRevenue(){
-    cout << "-- Total Revenue --" << endl;
+    cout << "--- Total Revenue ---" << endl;
     NodePtr temp = myTop;
     for(int i = 0; i < mySize; i++){
-        cout << "Order: " << temp->getData().getOrderId() << ", $" <<
+        cout << "Order " << temp->getData().getOrderId() << ": $" <<
                 temp->getData().getTotalAmount() << endl;
         
         temp = temp->getNext();
@@ -81,6 +81,10 @@ void CompletedOrder::saveToFile(const char* fileName){
     ofstream outputFile;
     
     outputFile.open(fileName);
+    if (!outputFile.is_open()) {
+        cerr << "Failed to open file: " << fileName << endl;
+        return;
+    }
     
     NodePtr temp = myTop;
      
@@ -105,7 +109,7 @@ void CompletedOrder::loadFromFile(const char* fileName){
     inputFile.open(fileName);
     if (!inputFile.is_open()) {
         cerr << "Failed to open file: " << fileName << endl;
-        return;
+        exit(1);
     }
 
     string line;
@@ -184,12 +188,19 @@ Node* CompletedOrder::search(int orderId) const{
 void CompletedOrder::displayCompletedOrders(ostream& out) const{
     
     if(isEmpty()){
-        cout << "No orders completed" << endl;
+        out << "No orders completed" << endl;
     } else {
         out <<"-- Completed Orders --" << endl;
         Node* temp = myTop;
         for(int i = 0; i < mySize; i++){
-            out << temp->getData();
+            temp->getData().displayOrder(out);
+            out << "Status: Completed" << endl;
+            out << endl;
         }
     }
+}
+
+ostream& operator<<(ostream& out, const CompletedOrder& c) {
+    c.displayCompletedOrders(out);
+    return out;
 }

@@ -91,7 +91,7 @@ bool Order::addOrderItem(MenuItem& item) {
 void Order::displayOrder(ostream& out) const{
     out << "Order ID: " << orderId <<
             ", Customer: " << custName << endl <<
-            "Items: ";
+            "Items: " << endl;
     
     for(int i = 0; i < orderSize; i++){
         out << items[i] << endl;

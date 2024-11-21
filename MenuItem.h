@@ -29,7 +29,7 @@ public:
     MenuItem();
     MenuItem(string, string, double);
     void displayMenuItem(ostream& ) const;
-    void readMenuItem();
+    void readMenuItem(istream&);
     void setMenuItem(string, string, double);
     void setName(string);
     string getName() const;

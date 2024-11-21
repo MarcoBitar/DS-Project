@@ -56,21 +56,21 @@ void MenuItem::displayMenuItem(ostream& out) const{
     cout << ", Name: " << name << ", Price: $" << price << endl;
 }
 
-void MenuItem::readMenuItem(){
+void MenuItem::readMenuItem(istream& in){
     string inputName, inputDescription;
     double inputPrice;
     
     cout << "Enter Item name: ";
-    cin.ignore();
-    getline(cin, inputName);
+    in.ignore();
+    getline(in, inputName);
     setName(inputName);
             
     cout << "\nEnter Item Description: ";
-    getline(cin, inputDescription);
+    getline(in, inputDescription);
     setDescription(inputDescription);
     
     cout << "\nEnter Item Price: ";
-    cin >> inputPrice;
+    in >> inputPrice;
     setPrice(inputPrice);
 }
 
@@ -80,6 +80,6 @@ ostream& operator<< (ostream& out, const MenuItem& menuItem){
 }
 
 istream& operator>>(istream& in, MenuItem& menuItem){
-    menuItem.readMenuItem();
+    menuItem.readMenuItem(in);
     return in;
 }
