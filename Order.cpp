@@ -13,7 +13,7 @@
 
 #include "Order.h"
 Order::Order(){
-    setOrder(-1, "", NULL, 0);
+    setOrder(orderId, "", NULL, 0);
 }
 
 Order::Order(int orderId, string custName, MenuItem* items, int orderSize){
@@ -27,6 +27,7 @@ void Order::setOrder(int orderId, string custName, MenuItem* items, int orderSiz
     calculateTotalAmount(items, orderSize);
     myCapacity = 10;
     
+    this->items = new MenuItem[myCapacity];
     for(int i = 0; i < orderSize; i++){
         this->items[i] = items[i];
     }
@@ -70,7 +71,7 @@ MenuItem& Order::getOrderItem(int pos) const {
     return items[pos];
 }
 
-bool Order::addOrderItem(MenuItem& item) {
+void Order::addOrderItem(MenuItem& item) {
     if(orderSize == myCapacity){
         myCapacity *= 2;
         MenuItem* temp = new MenuItem [myCapacity];
@@ -83,9 +84,12 @@ bool Order::addOrderItem(MenuItem& item) {
         items = temp;
     }
     
+    if(items == NULL){
+        items = new MenuItem[myCapacity];
+    }
+    
     items[orderSize] = item;
     orderSize++;
-    return true;
 }
 
 void Order::displayOrder(ostream& out) const{
@@ -94,7 +98,8 @@ void Order::displayOrder(ostream& out) const{
             "Items: " << endl;
     
     for(int i = 0; i < orderSize; i++){
-        out << items[i] << endl;
+        out << "  - " << items[i].getName() << "($" << items[i].getPrice() 
+                << ")" << endl << endl;
     }
 }
 

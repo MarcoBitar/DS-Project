@@ -65,13 +65,23 @@ void MenuItem::readMenuItem(istream& in){
     getline(in, inputName);
     setName(inputName);
             
-    cout << "\nEnter Item Description: ";
+    cout << "Enter Item Description: ";
     getline(in, inputDescription);
     setDescription(inputDescription);
     
-    cout << "\nEnter Item Price: ";
+    cout << "Enter Item Price: ";
     in >> inputPrice;
     setPrice(inputPrice);
+}
+
+MenuItem& MenuItem::operator=(const MenuItem& other){
+    if(this != &other){
+        name = other.name;
+        desc = other.desc;
+        price = other.price;
+    }
+    
+    return *this;
 }
 
 ostream& operator<< (ostream& out, const MenuItem& menuItem){

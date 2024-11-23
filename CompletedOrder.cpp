@@ -44,9 +44,11 @@ void CompletedOrder::addCompletedOrder(Order addOrder){
 }
 Order CompletedOrder::removeCompletedOrder(){
     Order output = myTop->getData();
-    
+    Node* temp = myTop;
     myTop = myTop->getNext();
     
+    delete temp;
+    mySize--;  
     return output;
 }
 
@@ -89,14 +91,15 @@ void CompletedOrder::saveToFile(const char* fileName){
     NodePtr temp = myTop;
      
     while(temp != NULL){
-        outputFile << temp->getData().getOrderId() << ", "
-                << temp->getData().getCustName() << ", ";
+        outputFile << temp->getData().getOrderId() << ","
+                << temp->getData().getCustName() << ",";
         for(int i = 0; i < temp->getData().getOrderSize(); i++) {
-            outputFile << temp->getData().getOrderItem(i).getName() << " - "
-                    << temp->getData().getOrderItem(i).getPrice() << " - "
-                    << temp->getData().getOrderItem(i).getDescription() << "/ ";
+            outputFile << temp->getData().getOrderItem(i).getName() << "-"
+                    << temp->getData().getOrderItem(i).getDescription() << "-"
+                    << temp->getData().getOrderItem(i).getPrice() << "/";
+
         }
-        outputFile << " , " << temp->getData().getTotalAmount() << endl;
+        outputFile << "," << temp->getData().getTotalAmount() << endl;
         temp = temp->getNext();
     }
     
@@ -114,6 +117,11 @@ void CompletedOrder::loadFromFile(const char* fileName){
 
     string line;
     while (getline(inputFile, line)) {
+        
+        if(line.empty()){
+            continue;
+        }
+        
         int comma1 = line.find(',');
         int comma2 = line.find(',', comma1 + 1);
         int comma3 = line.find(',', comma2 + 1);
@@ -164,7 +172,8 @@ void CompletedOrder::loadFromFile(const char* fileName){
         string totalStr = line.substr(comma3 + 1);
         double total = atof(totalStr.c_str());
 
-        addCompletedOrder(Order(id, name, items, itemCount)); 
+        addCompletedOrder(Order(id, name, items, itemCount));
+        mySize++;
         delete[] items; 
     }
 
@@ -185,8 +194,11 @@ Node* CompletedOrder::search(int orderId) const{
     return temp;
 }
 
-void CompletedOrder::displayCompletedOrders(ostream& out) const{
-    
+int CompletedOrder::size(){
+    return mySize;
+}
+
+void CompletedOrder::displayCompletedOrders(ostream& out) const {
     if(isEmpty()){
         out << "No orders completed" << endl;
     } else {
@@ -196,9 +208,11 @@ void CompletedOrder::displayCompletedOrders(ostream& out) const{
             temp->getData().displayOrder(out);
             out << "Status: Completed" << endl;
             out << endl;
+            temp = temp->getNext();
         }
     }
 }
+
 
 ostream& operator<<(ostream& out, const CompletedOrder& c) {
     c.displayCompletedOrders(out);

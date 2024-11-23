@@ -17,6 +17,7 @@
 CustomOrder::CustomOrder() {
     myFront = NULL;
     myBack = NULL;
+    mySize = 0;
 }
 
 CustomOrder::~CustomOrder() {
@@ -30,11 +31,13 @@ void CustomOrder::enqueue(const Order& order) {
     if (isEmpty()) {
         myFront = customOrder;
         myBack = customOrder; 
+        mySize++;
         return;
     }
     
     myBack->setNext(customOrder);
     myBack = customOrder;
+    mySize++;
 }
 
 Order CustomOrder::dequeue() {
@@ -46,14 +49,16 @@ Order CustomOrder::dequeue() {
             myBack = NULL;
 	}
 	temp->setNext(NULL); 
+        mySize--;
         return temp->getData();
     }
+    
     Order garbage;
     return garbage;
 }
 
 bool CustomOrder::isEmpty() const {
-	if (myFront == NULL) {
+	if (mySize == 0) {
             return true;
 	}
 	return false;
@@ -74,15 +79,37 @@ Node* CustomOrder::search(int orderId) {
 
 bool CustomOrder::deleteOrder(int orderId){
     Node* temp = search(orderId);
-    Node* prev = myFront;
     
-    while(prev != NULL && prev->getNext() != temp){
-        prev->setNext(prev->getNext());
+    if(isEmpty() || temp == NULL){
+        return false;
+        
+    } else if (temp == myFront) {
+        myFront = myFront->getNext();
+        if(myFront == NULL){
+            myBack == NULL;
+        }
+        
+    } else{
+        Node* prev = myFront;
+        
+        while(prev->getNext() != temp){
+            prev = prev->getNext();
+        }
+        
+        prev->setNext(temp->getNext());
+        
+        if(temp == myBack){
+            myBack = prev;
+        }
     }
     
-    prev->setNext(temp->getNext());
     delete temp;
+    mySize--;
     return true;
+}
+
+int CustomOrder::size(){
+    return mySize;
 }
 
 
@@ -92,10 +119,11 @@ void CustomOrder::displayCustomOrder(ostream& out) const {
     } else {
         out << "--- Active Orders ---" << endl;
         Node* temp = myFront;
-        while (temp != myBack) {
+        while (temp != NULL) {
             temp->getData().displayOrder(out);
             out << "Status: Pending" << endl;
             out << endl;
+            temp = temp->getNext();
         }
     }
     

@@ -22,6 +22,7 @@ using namespace std;
 /*
  * 
  */
+
 int main(int argc, char** argv) {
     
     int choice;
@@ -30,10 +31,12 @@ int main(int argc, char** argv) {
     CompletedOrder cOrder;
     cOrder.loadFromFile("C:\\Users\\Marco\\Downloads\\trial\\completed_orders.txt");
     (*menu).loadFromFile("C:\\Users\\Marco\\Downloads\\trial\\menu.txt");
+    static int orderID = cOrder.size()+1; 
     
     cout << "---Restaurant Order Management System---" << endl;
     
     do{
+        cout << endl;
         cout << "1. Display Menu" << "\n"
                 << "2. Add Menu Item" << "\n"
                 << "3. Delete Menu Item" << "\n"
@@ -52,7 +55,7 @@ int main(int argc, char** argv) {
         
         switch (choice) {
             case 1: {
-                cout << menu;
+                cout << (*menu);
                 break;
             }
             
@@ -86,18 +89,15 @@ int main(int argc, char** argv) {
             }
             
             case 5: {
-                static int orderId = 0;
                 int orderSize = 0, itemID, capacity = 10;
                 string custName;
                 int* itemsIdOrdered = new int[capacity];
-                MenuItem* itemsOrdered;
                 
                 cout << "Enter Customer Name: ";
                 cin >> custName;
+                cout << endl;
                 cout << "Enter items ID you want to purchase (0 to finish): ";
                 cin >> itemID;
-                
-                int i = 0;
                 
                 while (itemID != 0) {
                     if (itemID > 0 && itemID <= (*menu).size()) {
@@ -109,40 +109,55 @@ int main(int argc, char** argv) {
                             for (int j = 0; j < orderSize; j++) {
                                 temp [j] = itemsIdOrdered[j];
                             }
-
+                            
+                            delete[] itemsIdOrdered;
                             itemsIdOrdered = temp;
-                            delete [] temp;
-                            itemsIdOrdered[i] = itemID;
-                            orderSize++;
-                            i++;
+                        } 
+                        itemsIdOrdered[orderSize++] = itemID;
 
-                            cin >>itemID;
-                        }
-
-                        itemsOrdered = new MenuItem[orderSize];
-                        
-                        for (int i = 0; i < orderSize; i++) {
-                            itemsOrdered[i] = (*menu).getMenuItem(itemsIdOrdered[i]);
-                        }
                     } else {
                         cout << "Invalid Item ID. Try again: ";
-                        cin >> itemID;
                     }
+                    
+                    cin >> itemID;
                 }
                 
-                Order order(orderId++, custName, itemsOrdered, orderSize);
+                if(orderSize == 0) {
+                    cout << "No items selected. Exiting order..." << endl;
+                    delete[] itemsIdOrdered;
+                    break;
+                }
+
+                MenuItem* itemsOrdered = new MenuItem[orderSize];
+                
+                for (int i = 0; i < orderSize; i++) {
+                    itemsOrdered[i] = (*menu).getMenuItem(itemsIdOrdered[i]);
+                }
+
+                Order order(orderID++, custName, itemsOrdered, orderSize);
                 aOrder.enqueue(order);
+                cout << endl;
+                
                 cout << "Order added successfully!" << endl;
+                cout << "Your order will be processed soon!" << endl << endl;
+
+                delete[] itemsIdOrdered;
+                delete[] itemsOrdered;
                 break;
             }
             
             case 6: {
+                if (aOrder.isEmpty()) {
+                    cout << "No orders to process" << endl;
+                    break;
+                }
+                
                 Order copy = aOrder.dequeue();
                 cout << "Processing order for " << copy.getCustName() << "..."
                         << endl;
                 cOrder.addCompletedOrder(copy);
                 cout << "Order processed successfully!" << endl;
-                
+
                 break;
             }
             
@@ -154,7 +169,7 @@ int main(int argc, char** argv) {
             
             case 8: {
                 int dId;
-                cout << "Enter Id of Item (must be greater than 0): ";
+                cout << "Enter Id of Order (must be greater than 0): ";
                 cin >> dId;
                 
                 while(dId <= 0  || aOrder.search(dId) == NULL){
@@ -163,7 +178,6 @@ int main(int argc, char** argv) {
                 }
                 
                 aOrder.deleteOrder(dId);
-                cout << "Order deleted successfully" << endl;
                 break;
             }
             
@@ -184,7 +198,7 @@ int main(int argc, char** argv) {
                 cout << "Saving completed orders to file..." << endl;
                 cOrder.saveToFile("C:\\Users\\Marco\\Downloads\\trial\\completed_orders.txt");
                 cout << "Exiting the program... GoodBye!" << endl;
-                exit(1);
+                exit(0);
                 
                 break;
             }
